@@ -7,6 +7,9 @@ app.get("/", (req, res) => {
     res.json({
         msg: "hello from API"
     })
+    res.json({
+        msg: "hello from API"
+    })
 })
 
 app.listen(port, () => {
