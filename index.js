@@ -1,13 +1,18 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+
+//MIDDLEWARE
 app.use(express.json());
+//USER endpoint
+const usersRouter = require("./routes/users.js")
+app.use("/api/", usersRouter)
+
+
+
 app.listen(port, () => {console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);});
 
 app.get("/", (req, res) => {
-    res.json({
-        msg: "hello from API"
-    })
     res.json({
         msg: "hello from API"
     })
@@ -28,29 +33,39 @@ const users = [
 	{ id: 4, firstName: 'Bob', lastName: 'Brown', role: 'user' },
 	{ id: 5, firstName: 'Charlie', lastName: 'Davis', role: 'admin' }
 ];
+
+
+
 // GET : LIRE tous les utilisateurs
 app.get("/users", (req, res) => {
 	res.json(users)
 })
-// POST : CRÉER un nouvel utilisateur, basé sur les données passées dans le corps(body) de la requête
-app.post("/", (req, res) => {
-	// récupérer toutes les données qui arrivent dans le corps de la requête (body)
-	const { firstName, lastName } = req.body
 
-	// récupérer l'ID du dernier utilisateur en fonction du nombre d'utilisateurs dans notre variable de tableau 'users'.
-	const lastId = users[users.length - 1].id
-	// ajouter un pour créer un utilisateur unique
-	const newId = lastId + 1
+// POST : Créer un nouvel utilisateur
+app.post("/users", (req, res) => {
+    try {
+        const { firstName, lastName } = req.body;
+        const newId = users.length + 1; // Générer un ID unique en fonction de la longueur du tableau
+        const newUser = { id: newId, firstName, lastName };
+        users.push(newUser);
+        res.status(201).json(newUser);
+    } catch (error) {
+        console.error(error);
+        
+    }
 
-	// créer le nouvel utilisateur avec les données du corps de la requête et l'ID calculé
-	const newUser = {
-		firstName,
-		lastName,
-		id: newId,
-	}
+});
 
-	// ajouter le nouvel utilisateur à notre liste d'utilisateurs en utilisant la méthode 'push'
-	users.push(newUser)
-	// envoyer le code de statut 201 (créé) et les données du nouvel utilisateur afin de confirmer au client.
-	res.status(201).json(newUser)
-})
+// DELETE : Supprimer un utilisateur
+app.delete("/usersd/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const userIndex = users.findIndex(user => user.id === id);
+
+    if (userIndex === -1) {
+        return res.status(404).json({   
+ error: 'Utilisateur non trouvé' });
+    }
+
+    users.splice(userIndex, 1);
+    res.json({ message: 'Utilisateur supprimé' });
+});
