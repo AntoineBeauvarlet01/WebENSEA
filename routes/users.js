@@ -6,9 +6,17 @@ usersArray = [      { id: 1,  firstName: "Sophia", lastName: "Thomas" },
                     { id: 3,  firstName: "Antoine", lastName: "BEAUVARLET" },
 ]
 
+const db = require("../database")
 // GET: Retrieve all users (unchanged)
 router.get("/users", (req, res) => {
-    res.json(usersArray);
+    db.all('SELECT * FROM users', [], (err, rows) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          res.json(rows);
+        }
+      });
+    
   });
 
 // POST: Create a new user
