@@ -7,32 +7,13 @@ usersArray = [      { id: 1,  firstName: "Sophia", lastName: "Thomas" },
 ]
 
 const db = require("../database")
-const { getAllUsers, updateUser } = require("../controllers/usersControllers")
+const { getAllUsers, createNewUser, updateUser } = require("../controllers/usersControllers")
 
 // GET: Retrieve all users (unchanged)
 router.get("/users", getAllUsers );
 
 // POST: Create a new user
-router.post("/users", (req, res) => {
-try {
-    // Validate user data (optional but recommended)
-    const {  firstName, lastName, role } = req.body;
-    if ( !firstName || !lastName  ) {
-    return res.status(400).json({ error: "Missing required user data" });
-    }
-
-    // Generate a unique ID (consider using a more robust method like UUID)
-    const newId = usersArray.length ? usersArray[usersArray.length - 1].id + 1 : 1;
-
-    const newUser = { id: newId, firstName, lastName, role };
-    usersArray.push(newUser);
-
-    res.status(201).json(newUser); // Created
-} catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-}
-});
+router.post("/users",createNewUser);
   
 // PUT: Update an existing user
 router.put("/users/:id", updateUser);
