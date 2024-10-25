@@ -7,7 +7,7 @@ usersArray = [      { id: 1,  firstName: "Sophia", lastName: "Thomas" },
 ]
 
 const db = require("../database")
-const { getAllUsers, createNewUser, updateUser } = require("../controllers/usersControllers")
+const { getAllUsers, createNewUser, updateUser, deleteUser } = require("../controllers/usersControllers")
 
 // GET: Retrieve all users (unchanged)
 router.get("/users", getAllUsers );
@@ -19,25 +19,6 @@ router.post("/users",createNewUser);
 router.put("/users/:id", updateUser);
 
 // DELETE: Delete a user
-router.delete("/users/:id", (req, res) => {
-try {
-    const userId = parseInt(req.params.id);
-    const userIndex = usersArray.findIndex(usersArray => usersArray.id === userId);
+router.delete("/users/:id", deleteUser);
 
-    if (userIndex === -1) {
-    return res.status(404).json({ error: "User not found" });
-    }
-
-    usersArray.splice(userIndex, 1);
-    res.json({ message: "User deleted" });
-} catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-}
-});
-
-
-
-
-module.exports = usersArray;
 module.exports = router
