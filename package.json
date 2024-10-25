@@ -3,11 +3,15 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-      "start": "nodemon index.js"
+        "setup": "node seed.js",
+        "start": "nodemon index.js"
+        
     },
-    
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "description": ""
-  }
+    "description": "",
+    "dependencies": {
+        "sqlite3": "^5.1.7"
+    }
+}
