@@ -1,4 +1,9 @@
 const db = require("../database")
+const express = require('express');
+const app = express();
+const port = 3000;
+// Serveur statique pour les fichiers dans le dossier 'public'
+app.use(express.static('public'));
 
 exports.getAllUsers = function (req, res) {
 	db.all("SELECT * FROM users", [], (err, rows) => {
@@ -121,3 +126,8 @@ exports.getUsersID = function (req, res) {
         }
 	})
 }
+
+
+exports.page = function (req, res)  {
+    res.sendFile(__dirname + '/index.html');
+  }

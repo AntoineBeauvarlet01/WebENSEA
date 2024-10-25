@@ -3,10 +3,15 @@ const app = express();
 const port = 3000;
 const usersRouter = require("./routes/users.js")
 
-//MIDDLEWARE
+//const webRouter = require("./routes/web.js")
+
+
+
 app.use(express.json());
+
 //USER endpoint
 app.use("/api/", usersRouter)
+
 
 app.get("/", (req, res) => {
     res.json({        msg: "hello from API"    })
