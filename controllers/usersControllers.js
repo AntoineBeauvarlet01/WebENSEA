@@ -50,7 +50,7 @@ exports.updateUser = (req, res) => {
 		res.status(400).json({ message: "Aucun champ à mettre à jour" })
 	}
 }
-
+//PUT 
 exports.createNewUser = function (req, res)  {
     try {
         const {  firstName, lastName } = req.body;
