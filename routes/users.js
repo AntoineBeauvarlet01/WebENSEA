@@ -7,7 +7,7 @@ usersArray = [      { id: 1,  firstName: "Sophia", lastName: "Thomas" },
 ]
 
 const db = require("../database")
-const { getAllUsers } = require("../controllers/usersControllers")
+const { getAllUsers, updateUser } = require("../controllers/usersControllers")
 
 // GET: Retrieve all users (unchanged)
 router.get("/users", getAllUsers );
@@ -35,26 +35,7 @@ try {
 });
   
 // PUT: Update an existing user
-router.put("/users/:id", (req, res) => {
-try {
-    const userId = parseInt(req.params.id);
-    const { firstName, lastName } = req.body;
-
-    const userIndex = usersArray.findIndex(usersArray => usersArray.id === userId);
-    if (userIndex === -1) {
-    return res.status(404).json({ error: "User not found" });
-    }
-
-    // Validate updated user data (optional but recommended)
-
-    usersArray[userIndex] = { ...usersArray[userIndex], firstName, lastName };
-    res.json(usersArray[userIndex]); // Updated user
-} 
-catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
-}
-});
+router.put("/users/:id", updateUser);
 
 // DELETE: Delete a user
 router.delete("/users/:id", (req, res) => {
