@@ -34,10 +34,10 @@ try {
 });
   
 // PUT: Update an existing user
-router.put("/api/users/:id", (req, res) => {
+router.put("/users/:id", (req, res) => {
 try {
     const userId = parseInt(req.params.id);
-    const { id, firstName, lastName } = req.body;
+    const { firstName, lastName } = req.body;
 
     const userIndex = usersArray.findIndex(usersArray => usersArray.id === userId);
     if (userIndex === -1) {
