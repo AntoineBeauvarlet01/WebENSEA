@@ -56,7 +56,7 @@ catch (error) {
 });
 
 // DELETE: Delete a user
-router.delete("/api/users/:id", (req, res) => {
+router.delete("/users/:id", (req, res) => {
 try {
     const userId = parseInt(req.params.id);
     const userIndex = usersArray.findIndex(usersArray => usersArray.id === userId);
