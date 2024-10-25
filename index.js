@@ -9,9 +9,8 @@ app.use(express.json());
 app.use("/api/", usersRouter)
 
 app.get("/", (req, res) => {
-    res.json({
-        msg: "hello from API"
-    })
+ //   res.json({        msg: "hello from API"    })
+    console.log('node seed.js')
 })
 
 app.listen(port, () => {console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);});
