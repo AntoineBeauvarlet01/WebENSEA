@@ -3,7 +3,6 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "setup": "node seed.js",
         "start": "nodemon index.js"
         
     },

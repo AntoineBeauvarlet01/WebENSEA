@@ -6,10 +6,11 @@ usersArray = [      { id: 1,  firstName: "Sophia", lastName: "Thomas" },
                     { id: 3,  firstName: "Antoine", lastName: "BEAUVARLET" },
 ]
 
+const db = require("../database")
+const { getAllUsers } = require("../controllers/usersControllers")
+
 // GET: Retrieve all users (unchanged)
-router.get("/users", (req, res) => {
-    res.json(usersArray);
-  });
+router.get("/users", getAllUsers );
 
 // POST: Create a new user
 router.post("/users", (req, res) => {
