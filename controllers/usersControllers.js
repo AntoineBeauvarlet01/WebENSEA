@@ -106,3 +106,18 @@ exports.deleteUser = (req, res) => {
 		}
 	})
 }
+
+//get user id
+exports.getUsersID = function (req, res) {
+    const userId = req.params.id; // Récupérer l'id de l'utilisateur depuis les paramètres de l'URL
+
+    db.get("SELECT * FROM users WHERE id = ?", [userId], (err, row) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+        } else if (row) {
+            res.json(row); // Envoyer les informations de l'utilisateur correspondant
+        } else {
+            res.status(404).json({ error: "User not found" }); // Utilisateur non trouvé
+        }
+	})
+}
